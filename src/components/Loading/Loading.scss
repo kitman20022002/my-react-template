@@ -1,0 +1,132 @@
+$red:#f00;
+$red-lt:lighten($red, 30%);
+$red-shadow:darken($red, 10%);
+
+$blue:rgba(0,183,229,0.9);
+$blue-lt:lighten($blue, 30%);
+$blue-shadow:darken($blue, 30%);
+
+$cyan:rgba(0,229,183,0.9);
+$cyan-shadow:darken($cyan, 30%);
+
+$green:#8aff51;
+$green-lt:lighten($green, 30%);
+$green-shadow:darken($green, 30%);
+
+
+
+@mixin animation($name, $duration:1s, $delay:0, $ease:linear, $iterations:infinite, $endState:normal){
+  -webkit-animation: $name $duration $ease $iterations $endState;
+  -moz-animation: $name $duration $ease $iterations $endState;
+  -ms-animation: $name $duration $ease $iterations $endState;
+  animation: $name $duration $ease $iterations $endState;
+  @include delay($delay);
+}
+
+@mixin delay($delay){
+  -webkit-animation-delay: $delay;
+  -moz-animation-delay: $delay;
+  -o-animation-delay: $delay;
+  animation-delay: $delay;
+}
+
+
+#facebook {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+  .bar {
+    background:#01d1a7;
+    border:1px solid #01d1a7;
+    float:left;
+    margin:6px 4px 0 0;
+    width:6px;
+    height:18px;
+    @include animation(facebook-pulse);
+    &:nth-child(2) { @include delay(0.1s); }
+    &:last-child { @include delay(0.2s); margin-right:0; }
+  }
+}
+
+
+@keyframes facebook-pulse
+{
+  0% { }
+  10% {
+    margin-top:5px;
+    height:22px;
+    border-color:#d1d8e6;
+    background-color:#bac5db;
+  }
+  20% {
+    margin-top:0px;
+    height:32px;
+    border-color:#d1d7e2;
+    background-color:#bac5db;
+  }
+  30% {
+    margin-top:1px;
+    height:30px;
+    border-color:#d1d8e6;
+    background-color:#bac5db;
+  }
+  40% { margin-top:3px; height:26px; }
+  50% { margin-top:5px; height:22px; }
+  60% { margin-top:6px; height:18px; }
+  100% { }
+}
+@-moz-keyframes facebook-pulse
+{
+  0% { }
+  10% {
+    margin-top:5px;
+    height:22px;
+    border-color:#d1d8e6;
+    background-color:#bac5db;
+  }
+  20% {
+    margin-top:0px;
+    height:32px;
+    border-color:#d1d7e2;
+    background-color:#bac5db;
+  }
+  30% {
+    margin-top:1px;
+    height:30px;
+    border-color:#d1d8e6;
+    background-color:#bac5db;
+  }
+  40% { margin-top:3px; height:26px; }
+  50% { margin-top:5px; height:22px; }
+  60% { margin-top:6px; height:18px; }
+  100% { }
+}
+@-webkit-keyframes facebook-pulse
+{
+  0% { }
+  10% {
+    margin-top:5px;
+    height:22px;
+    border-color:#d1d8e6;
+    background-color:#bac5db;
+  }
+  20% {
+    margin-top:0px;
+    height:32px;
+    border-color:#d1d7e2;
+    background-color:#bac5db;
+  }
+  30% {
+    margin-top:1px;
+    height:30px;
+    border-color:#d1d8e6;
+    background-color:#bac5db;
+  }
+  40% { margin-top:3px; height:26px; }
+  50% { margin-top:5px; height:22px; }
+  60% { margin-top:6px; height:18px; }
+  100% { }
+}

@@ -1,0 +1,10 @@
+.card__concept {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color:#7a7a7a;
+}
+
+.card__concept h4, .card__concept div, .card__concept p {
+    flex-basis: 100%;
+}

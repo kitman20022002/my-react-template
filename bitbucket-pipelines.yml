@@ -1,0 +1,58 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+# https://medium.com/@eferhatg/create-react-app-continuous-integration-config-with-circleci-and-aws-2b0238cde169
+# https://medium.com/@ericpwein/deploying-a-react-app-to-amazon-s3-with-bitbucket-pipelines-d93df3a324f9
+image: node:10.15.3
+
+pipelines:
+  branches:
+    master:
+    - step:
+        name: Install
+        caches:
+        - node
+        script: # Modify the commands below to build your repository.
+        - rm -rf package-lock.json
+        - rm -rf node_modules
+        - npm install
+        artifacts:
+        - node_modules/**
+    - step:
+        name: Test
+        script:
+        - npm test
+        artifacts:
+        - node_modules/**
+    - step:
+        name: Security Test
+        script:
+        - npm audit
+    - step:
+        name: Build
+        script:
+        - npm install --production
+        - REACT_APP_ENVIRONMENT=production npm run build
+        artifacts:
+        - build/**
+    - step:
+        name: Deploy
+        script:
+        - pipe: atlassian/aws-s3-deploy:0.4.4
+          variables:
+            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID # Optional if already defined in the context.
+            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY # Optional if already defined in the context.
+            AWS_DEFAULT_REGION: 'ap-southeast-2' # Optional if already defined in the context.
+            S3_BUCKET: $S3_BUCKET
+            LOCAL_PATH: "build"
+            # CONTENT_ENCODING: '<string>' # Optional.
+            # ACL: '<string>' # Optional.
+            # STORAGE_CLASS: '<string>' # Optional.
+            # CACHE_CONTROL: '<string>' # Optional.
+            # EXPIRES: '<timestamp>' # Optional.
+            # DELETE_FLAG: '<boolean>' # Optional.
+            # EXTRA_ARGS: '<string>' # Optional.
+            # DEBUG: '<boolean>' # Optional.
+
